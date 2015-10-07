@@ -50,8 +50,36 @@ module.exports = {
                                 },
                                 "init": {
                                     "type": "MetaProperty",
-                                    "meta": "new",
-                                    "property": "target",
+                                    "meta": {
+                                        type: "Identifier",
+                                        name: "new",
+                                        "range": [27, 30],
+                                        loc: {
+                                            start: {
+                                                line: 2,
+                                                column: 12
+                                            },
+                                            end: {
+                                                line: 2,
+                                                column: 15
+                                            }
+                                        }
+                                    },
+                                    "property": {
+                                        type: "Identifier",
+                                        name: "target",
+                                        "range": [31, 37],
+                                        loc: {
+                                            start: {
+                                                line: 2,
+                                                column: 16
+                                            },
+                                            end: {
+                                                line: 2,
+                                                column: 22
+                                            }
+                                        }
+                                    },
                                     "range": [
                                         27,
                                         37

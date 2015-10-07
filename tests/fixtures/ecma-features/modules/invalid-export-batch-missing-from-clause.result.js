@@ -2,5 +2,5 @@ module.exports = {
     "index": 8,
     "lineNumber": 1,
     "column": 9,
-    "description": "Missing from clause"
+    "message": "Missing from clause"
 };

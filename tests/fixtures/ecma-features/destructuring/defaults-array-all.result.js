@@ -11,7 +11,7 @@ module.exports = {
                         "elements": [
                             {
                                 "type": "AssignmentPattern",
-                                "operator": "=",
+
                                 "left": {
                                     "type": "Identifier",
                                     "name": "x",
@@ -66,7 +66,7 @@ module.exports = {
                             },
                             {
                                 "type": "AssignmentPattern",
-                                "operator": "=",
+
                                 "left": {
                                     "type": "Identifier",
                                     "name": "y",
@@ -121,7 +121,7 @@ module.exports = {
                             },
                             {
                                 "type": "AssignmentPattern",
-                                "operator": "=",
+
                                 "left": {
                                     "type": "Identifier",
                                     "name": "z",

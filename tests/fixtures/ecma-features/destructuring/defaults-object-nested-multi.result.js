@@ -31,7 +31,7 @@ module.exports = {
                                 },
                                 "value": {
                                     "type": "AssignmentPattern",
-                                    "operator": "=",
+
                                     "left": {
                                         "type": "Identifier",
                                         "name": "x",

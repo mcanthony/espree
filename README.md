@@ -1,16 +1,6 @@
 # Espree
 
-Espree is an actively-maintained fork Esprima, a high performance,
-standard-compliant [ECMAScript](http://www.ecma-international.org/publications/standards/Ecma-262.htm)
-parser written in ECMAScript (also popularly known as
-[JavaScript](http://en.wikipedia.org/wiki/JavaScript)).
-
-## Features
-
-- Full support for ECMAScript 5.1 ([ECMA-262](http://www.ecma-international.org/publications/standards/Ecma-262.htm))
-- Implements [ESTree](https://github.com/estree/estree) (both ES5 and ES6 specs) as the AST format.
-- Optional tracking of syntax node location (index-based and line-column)
-- Heavily tested and battle-hardened by inclusion in [ESLint](http://eslint.org)
+Espree started out as a fork of [Esprima](http://esprima.org) v1.2.2, the last stable published released of Esprima before work on ECMAScript 6 began. Espree is now built on top of [Acorn](https://github.com/marijnh/acorn), which has a modular architecture that allows extension of core functionality. The goal of Espree is to produce output that is similar to Esprima with a similar API so that it can be used in place of Esprima.
 
 ## Usage
 
@@ -113,14 +103,11 @@ var ast = espree.parse(code, {
         // enable parsing spread operator
         spread: true,
 
-        // enable super in functions
-        superInFunctions: true,
-
         // enable parsing classes
         classes: true,
 
         // enable parsing of new.target
-        newTarget: false,
+        newTarget: true,
 
         // enable parsing of modules
         modules: true,
@@ -137,29 +124,11 @@ var ast = espree.parse(code, {
 });
 ```
 
-## Plans
-
-Espree starts as a fork of Esprima v1.2.2, the last stable published released of Esprima before work on ECMAScript 6 began. Espree's first version is therefore v1.2.2 and is 100% compatible with Esprima v1.2.2 as a drop-in replacement. The version number will be incremented based on [semantic versioning](http://semver.org/) as features and bug fixes are added.
-
-The immediate plans are:
-
-1. Move away from giant files and move towards small, modular files that are easier to manage.
-1. Move towards CommonJS for all files and use browserify to create browser bundles.
-1. Support ECMAScript version filtering, allowing users to specify which version the parser should work in (similar to Acorn's `ecmaVersion` property).
-1. Add tests to track comment attachment.
-1. Add well-thought-out features that are useful for tools developers.
-1. Add full support for ECMAScript 6.
-1. Add optional parsing of JSX.
-
 ## Esprima Compatibility Going Forward
 
-The primary goal is to produce the exact same AST structure as Esprima and Acorn, and that takes precedence over anything else. (The AST structure being the ESTree API with JSX extensions.) Separate from that, Espree may deviate from what Esprima outputs in terms of where and how comments are attached, as well as what additional information is available on AST nodes. That is to say, Espree may add more things to the AST nodes than Esprima does but the overall AST structure produced will be the same.
+The primary goal is to produce the exact same AST structure and tokens as Esprima, and that takes precedence over anything else. (The AST structure being the [ESTree](https://github.com/estree/estree) API with JSX extensions.) Separate from that, Espree may deviate from what Esprima outputs in terms of where and how comments are attached, as well as what additional information is available on AST nodes. That is to say, Espree may add more things to the AST nodes than Esprima does but the overall AST structure produced will be the same.
 
 Espree may also deviate from Esprima in the interface it exposes.
-
-## Frequent and Incremental Releases
-
-Espree will not do giant releases. Releases will happen periodically as changes are made and incremental releases will be made towards larger goals. For instance, we will not have one big release for ECMAScript 6 support. Instead, we will implement ECMAScript 6, piece-by-piece, hiding those pieces behind an `ecmaFeatures` property that allows you to opt-in to use those features.
 
 ## Contributing
 
@@ -181,14 +150,9 @@ In an effort to help those wanting to transition from other parsers to Espree, t
 
 * None.
 
-### Esprima/Harmony Branch
+### Esprima 2.x
 
 * Esprima/Harmony uses a different comment attachment algorithm that results in some comments being added in different places than Espree. The algorithm Espree uses is the same one used in Esprima 1.2.2.
-* Espree uses ESTree format for the AST nodes whereas Esprima/Harmony uses a nonstandard format.
-
-### Esprima-FB
-
-* All Esprima/Harmony incompatibilities.
 
 ## Frequently Asked Questions
 
@@ -206,15 +170,18 @@ We are actively working with Esprima as part of its adoption by the jQuery Found
 
 ### Why don't you just use Facebook's Esprima fork?
 
-`esprima-fb` is Facebook's Esprima fork that features JSX and Flow type annotations. We tried working with `esprima-fb` in our evaluation of how to support ECMAScript 6 and JSX in ESLint. Unfortunately, we were hampered by bugs that were part of Esprima (not necessarily Facebook's code). Since `esprima-fb` tracks the Esprima Harmony branch, that means we still were unable to get fixes or features we needed in a timely manner.
+`esprima-fb` is Facebook's Esprima fork that features JSX and Flow type annotations. This fork is no longer maintained.
 
 ### Why don't you just use Acorn?
 
 Acorn is a great JavaScript parser that produces an AST that is compatible with Esprima. Unfortunately, ESLint relies on more than just the AST to do its job. It relies on Esprima's tokens and comment attachment features to get a complete picture of the source code. We investigated switching to Acorn, but the inconsistencies between Esprima and Acorn created too much work for a project like ESLint.
 
-We expect there are other tools like ESLint that rely on more than just the AST produced by Esprima, and so a drop-in replacement will help those projects as well as ESLint.
+We are building on top of Acorn, however, so that we can contribute back and help make Acorn even better.
 
 ### What ECMAScript 6 features do you support?
 
 All of them.
 
+### How do you determine which experimental features to support?
+
+In general, we do not support experimental JavaScript features. We may make exceptions from time to time depending on the maturity of the features.

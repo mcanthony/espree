@@ -293,7 +293,7 @@ module.exports = {
             }
         },
         {
-            "type": "Identifier",
+            "type": "Keyword",
             "value": "yield",
             "range": [
                 19,
